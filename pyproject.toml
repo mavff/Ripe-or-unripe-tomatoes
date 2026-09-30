@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fruit-harvest"
+version = "0.1.0"
+description = "Tomato ripeness detection and harvest decision pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "ultralytics>=8.3,<9",
+  "PyYAML>=6,<7",
+  "Pillow>=10,<12",
+  "onnx>=1.16,<2",
+  "onnxruntime>=1.18,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+
+[project.scripts]
+fruit-harvest = "fruit_harvest.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
