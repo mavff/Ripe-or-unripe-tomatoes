@@ -13,7 +13,7 @@ fruit-harvest data fetch-aerial
 fruit-harvest data prepare-aerial --ripe-stage red
 ```
 
-The downloader checks the published MD5 values before extracting. Both raw ZIPs and all prepared images remain outside Git. The dataset's [LICENSE](https://zenodo.org/records/22071809/files/LICENSE?download=1) is CC BY 4.0. Published example crops credit Afeefa Azam, link the source and license, and describe the annotations added here.
+The downloader checks the published MD5 values before extracting. The source images and prepared splits are committed; the two large original ZIPs remain available from Zenodo. The dataset's [LICENSE](https://zenodo.org/records/22071809/files/LICENSE?download=1) is CC BY 4.0. [Attribution](../data/README.md) credits Afeefa Azam and describes the changes.
 
 ## AgRobTomato used for the first executable workflow
 
@@ -21,7 +21,7 @@ The downloader checks the published MD5 values before extracting. Both raw ZIPs 
 
 The actual archive has 6,084 annotated fruits: 5,594 `unriped`, 276 `breaking`, 184 `reddish`, and 30 `riped`. We map `unriped` → `unripe`, `breaking` and `reddish` → `semi_ripe`, and `riped` → `ripe`. This preserves the agreed decision that only fully ripe fruit may be harvested. The source does not include a train/test split. We group successive frames in blocks of 20, then assign whole blocks to train, validation, or test with seed 42. The resulting split and class counts are recorded in `dataset_manifest.json`.
 
-Only 30 fully ripe objects are available. Consequently, recall and precision for `ripe` may vary strongly with a few detections. Do not infer field performance from this dataset alone. Although the Zenodo page does not visibly display a license, its [official API record](https://zenodo.org/api/records/5596799) specifies `cc-by-4.0`. We publish only two annotated test examples with [credit and modification details](../output/examples/ATTRIBUTION.md), not the full dataset.
+Only 30 fully ripe objects are available. Consequently, recall and precision for `ripe` may vary strongly with a few detections. Do not infer field performance from this dataset alone. Although the Zenodo page does not visibly display a license, its [official API record](https://zenodo.org/api/records/5596799) specifies `cc-by-4.0`. The source and prepared images are included with [credit and modification details](../data/README.md).
 
 ## tomatOD adapter
 
@@ -29,4 +29,4 @@ Only 30 fully ripe objects are available. Consequently, recall and precision for
 
 ## Generated dataset
 
-`data prepare` writes `images/{train,val,test}/`, matching `labels/{train,val,test}/`, `dataset.yaml`, and `dataset_manifest.json`. Each label is `class_id center_x center_y width height` with coordinates normalized to `[0, 1]`. Class IDs are `0=unripe`, `1=semi_ripe`, `2=ripe`. No raw or processed images enter Git.
+`data prepare` writes `images/{train,val,test}/`, matching `labels/{train,val,test}/`, `dataset.yaml`, and `dataset_manifest.json`. Each label is `class_id center_x center_y width height` with coordinates normalized to `[0, 1]`. Class IDs are `0=unripe`, `1=semi_ripe`, `2=ripe`. The committed YAML paths are relative to the repository root; run commands from that directory.

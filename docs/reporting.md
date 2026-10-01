@@ -1,6 +1,6 @@
 # Relatório reproduzível
 
-Os PDFs em `output/aerial/pdf/` e `output/pdf/` resumem, respectivamente, o experimento AerialYield e o primeiro treino curto AgRob. Os JSONs, o histórico CSV e as figuras publicados junto deles permitem conferir cada número. Nenhum resultado autoriza um braço robótico a se mover; dados brutos e pesos permanecem fora do Git.
+Os PDFs em `output/aerial/pdf/` e `output/pdf/` resumem, respectivamente, o experimento AerialYield e o primeiro treino curto AgRob. Os JSONs, o histórico CSV, as figuras, os dados e os checkpoints publicados permitem conferir cada número. Nenhum resultado autoriza um braço robótico a se mover.
 
 ## Reproduzir a comparação AerialYield
 
@@ -62,4 +62,4 @@ Cada comando de treino/avaliação exige um diretório de saída novo. A configu
 - **Previsões sem correspondência** são contadas pelo avaliador do projeto com confiança mínima 0,05. Esse corte difere da forma como o Ultralytics agrega suas métricas de detecção.
 - **Métricas de colheita** não estão disponíveis nos experimentos publicados: nenhuma fruta madura foi classificada corretamente na validação. O teste com `--detection-only` não seleciona um limiar no conjunto de teste nem autoriza o braço robótico.
 
-O repositório identifica as contribuições de maneira transparente: o proprietário definiu o objetivo e o escopo; a implementação inicial teve assistência do OpenAI Codex. A [API oficial do Zenodo](https://zenodo.org/api/records/5596799) registra licença CC BY 4.0 para AgRobTomato. Apenas dois recortes anotados são publicados, com [crédito, links e modificações](../output/examples/ATTRIBUTION.md).
+O repositório identifica as contribuições de maneira transparente: o proprietário definiu o objetivo e o escopo; a implementação inicial teve assistência do OpenAI Codex. A [API oficial do Zenodo](https://zenodo.org/api/records/5596799) registra licença CC BY 4.0 para AgRobTomato. As imagens originais e preparadas são publicadas com [crédito, links e modificações](../data/README.md).

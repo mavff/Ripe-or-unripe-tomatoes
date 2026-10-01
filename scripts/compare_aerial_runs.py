@@ -51,7 +51,7 @@ def main() -> None:
         if report["split"] != "val":
             raise ValueError(f"Not a validation report: {path}")
         results[label] = {"train_run": train_run, "config": config, **summarize(report)}
-        public_report = {**report, "weights": "Local best.pt; weights are not distributed"}
+        public_report = {**report, "weights": f"artifacts/runs/{train_run}/weights/best.pt"}
         (public_reports / f"{train_run}.json").write_text(
             json.dumps(public_report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
         )

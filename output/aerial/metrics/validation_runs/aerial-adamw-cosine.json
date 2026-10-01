@@ -2,7 +2,7 @@
   "schema_version": 1,
   "split": "val",
   "images": 105,
-  "weights": "Local best.pt; weights are not distributed",
+  "weights": "artifacts/runs/aerial-adamw-cosine/weights/best.pt",
   "matching_iou": 0.5,
   "detector_metrics": {
     "metrics/precision(B)": 0.7911506738441134,

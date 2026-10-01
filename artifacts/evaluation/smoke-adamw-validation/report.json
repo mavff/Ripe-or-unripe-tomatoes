@@ -1,0 +1,444 @@
+{
+  "schema_version": 1,
+  "split": "val",
+  "images": 98,
+  "weights": "/home/mavff/projetos/frutas_maduras/artifacts/runs/smoke-adamw-cosine/weights/best.pt",
+  "matching_iou": 0.5,
+  "detector_metrics": {
+    "metrics/precision(B)": 0.5770876507620603,
+    "metrics/recall(B)": 0.3129642480787519,
+    "metrics/mAP50(B)": 0.256744407345183,
+    "metrics/mAP50-95(B)": 0.1142175817147518,
+    "fitness": 0.1142175817147518
+  },
+  "matched_class_confusion": {
+    "unripe": {
+      "unripe": 960,
+      "semi_ripe": 0,
+      "ripe": 0
+    },
+    "semi_ripe": {
+      "unripe": 61,
+      "semi_ripe": 0,
+      "ripe": 0
+    },
+    "ripe": {
+      "unripe": 14,
+      "semi_ripe": 0,
+      "ripe": 0
+    }
+  },
+  "matched_objects": 1035,
+  "matched_classification": {
+    "per_class": {
+      "unripe": {
+        "support": 960,
+        "precision": 0.927536231884058,
+        "recall": 1.0,
+        "f1": 0.9624060150375939
+      },
+      "semi_ripe": {
+        "support": 61,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "ripe": {
+        "support": 14,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "macro_f1": 0.3208020050125313
+  },
+  "policy_status": "unavailable_no_ripe_true_positives",
+  "harvest_threshold": null,
+  "harvest_decision": null,
+  "error_examples": [
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "semi_ripe",
+      "truth_bbox_xyxy": [
+        860.7699968,
+        426.0999996,
+        912.5100032,
+        487.7399988000001
+      ],
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        859.2005615234375,
+        427.2857666015625,
+        909.2816162109375,
+        488.6749267578125
+      ],
+      "confidence": 0.9277754426002502
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "semi_ripe",
+      "truth_bbox_xyxy": [
+        932.2500032,
+        576.2700036,
+        988.0000064,
+        654.1800012
+      ],
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        928.99169921875,
+        574.4241943359375,
+        988.8720703125,
+        651.216552734375
+      ],
+      "confidence": 0.7256036400794983
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "semi_ripe",
+      "truth_bbox_xyxy": [
+        879.1699904000001,
+        570.9400019999999,
+        941.5899967999999,
+        645.1100028
+      ],
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        882.3572998046875,
+        572.486083984375,
+        942.4952392578125,
+        651.42822265625
+      ],
+      "confidence": 0.7169448733329773
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "semi_ripe",
+      "truth_bbox_xyxy": [
+        849.5599935999999,
+        604.5400008,
+        899.7099968,
+        667.2499992
+      ],
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        844.5875244140625,
+        605.577392578125,
+        893.56640625,
+        668.822021484375
+      ],
+      "confidence": 0.5653191208839417
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "unripe",
+      "truth_bbox_xyxy": [
+        6.420000000000002,
+        421.30000440000003,
+        37.1,
+        455.20000200000004
+      ],
+      "prediction": "missed"
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        931.211181640625,
+        230.29843139648438,
+        978.68017578125,
+        286.4819641113281
+      ],
+      "confidence": 0.8045699000358582
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        864.9337158203125,
+        422.4913330078125,
+        914.994140625,
+        477.4359130859375
+      ],
+      "confidence": 0.6238250136375427
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        865.751220703125,
+        567.30712890625,
+        939.716064453125,
+        662.966552734375
+      ],
+      "confidence": 0.5350523591041565
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        887.118896484375,
+        236.62005615234375,
+        933.635498046875,
+        295.36077880859375
+      ],
+      "confidence": 0.47102317214012146
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        882.21337890625,
+        385.916015625,
+        919.6884765625,
+        438.8551025390625
+      ],
+      "confidence": 0.3790562152862549
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        717.7540283203125,
+        221.83145141601562,
+        764.3883056640625,
+        267.9069519042969
+      ],
+      "confidence": 0.370873361825943
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        353.01513671875,
+        346.22125244140625,
+        399.94091796875,
+        390.92425537109375
+      ],
+      "confidence": 0.35401126742362976
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        927.58544921875,
+        230.54750061035156,
+        968.2802734375,
+        289.4007568359375
+      ],
+      "confidence": 0.33597055077552795
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        597.5662841796875,
+        646.2650146484375,
+        643.8153076171875,
+        703.9710693359375
+      ],
+      "confidence": 0.297165185213089
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        700.591552734375,
+        213.79779052734375,
+        737.6396484375,
+        264.96453857421875
+      ],
+      "confidence": 0.2920885682106018
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        3.9571609497070312,
+        515.669189453125,
+        49.76026153564453,
+        560.335205078125
+      ],
+      "confidence": 0.22466443479061127
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        584.9969482421875,
+        642.784423828125,
+        635.5089111328125,
+        707.75830078125
+      ],
+      "confidence": 0.2155829817056656
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        637.1544189453125,
+        205.42349243164062,
+        668.0042724609375,
+        235.07305908203125
+      ],
+      "confidence": 0.18135280907154083
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        288.85235595703125,
+        293.78143310546875,
+        331.32135009765625,
+        351.734619140625
+      ],
+      "confidence": 0.18119655549526215
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        873.3226928710938,
+        387.72314453125,
+        916.9310913085938,
+        442.7076416015625
+      ],
+      "confidence": 0.1579737514257431
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        285.48797607421875,
+        334.2506103515625,
+        323.66143798828125,
+        377.7633056640625
+      ],
+      "confidence": 0.1464190036058426
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        278.8511962890625,
+        503.4150390625,
+        319.59332275390625,
+        549.218505859375
+      ],
+      "confidence": 0.12004723399877548
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        883.6021728515625,
+        604.0645751953125,
+        941.1285400390625,
+        669.7208251953125
+      ],
+      "confidence": 0.11002208292484283
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        313.3819580078125,
+        329.3143310546875,
+        354.2684326171875,
+        376.0574951171875
+      ],
+      "confidence": 0.10938720405101776
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        659.0316162109375,
+        188.95941162109375,
+        701.7137451171875,
+        255.35891723632812
+      ],
+      "confidence": 0.09266588091850281
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        716.01123046875,
+        64.08343505859375,
+        766.296142578125,
+        111.61895751953125
+      ],
+      "confidence": 0.08899367600679398
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        666.1795043945312,
+        219.50624084472656,
+        706.0756225585938,
+        268.3839111328125
+      ],
+      "confidence": 0.06945016235113144
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        298.3187255859375,
+        263.837158203125,
+        343.3968505859375,
+        307.7742919921875
+      ],
+      "confidence": 0.06652167439460754
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        846.3818359375,
+        426.66290283203125,
+        897.873779296875,
+        486.646484375
+      ],
+      "confidence": 0.06485158205032349
+    },
+    {
+      "image": "tomate_barroselas_20200806_0100.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        767.9677124023438,
+        66.59579467773438,
+        804.5271606445312,
+        105.32704162597656
+      ],
+      "confidence": 0.05569891631603241
+    }
+  ],
+  "total_errors": 1886
+}

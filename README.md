@@ -23,16 +23,13 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-The datasets are not committed. See [Dataset](docs/dataset.md) for sources, licenses, labels, and preparation. The current AerialYield experiment considers only `Red` (>90% red) ripe enough for harvest; `Light Red` remains `semi_ripe`.
+The source images, annotations, prepared datasets, checkpoints, and experiment records are included. See [Dataset](docs/dataset.md) for provenance, licenses, labels, and preparation. The current AerialYield experiment considers only `Red` (>90% red) ripe enough for harvest; `Light Red` remains `semi_ripe`.
 
 ## Run the pipeline
 
 For the current AerialYield-T2M experiment:
 
 ```bash
-fruit-harvest data fetch-aerial
-fruit-harvest data prepare-aerial --ripe-stage red
-
 fruit-harvest train --data data/aerial-processed/dataset.yaml \
   --config configs/aerial-cpu-highres.yaml --name aerial-adamw-highres
 
@@ -47,7 +44,7 @@ fruit-harvest evaluate --split test --detection-only \
   --output artifacts/evaluation/aerial-test
 ```
 
-The [source split audit](output/aerial/metrics/source_split_audit.json) explains why the AerialYield YOLO folders must be filtered by the official COCO split lists. Three CPU profiles were compared on validation only; [the selection record](output/aerial/metrics/validation_comparison.json) identifies the 512 px checkpoint. Validation found no correct `ripe` harvest decision, so the test command uses `--detection-only`. See [Reporting](docs/reporting.md) for the report commands.
+The prepared data and checkpoints are ready after cloning; downloading and preparing them again is optional. The [source split audit](output/aerial/metrics/source_split_audit.json) explains why the AerialYield YOLO folders must be filtered by the official COCO split lists. Three CPU profiles were compared on validation only; [the selection record](output/aerial/metrics/validation_comparison.json) identifies the 512 px checkpoint. Validation found no correct `ripe` harvest decision, so the test command uses `--detection-only`. See [Reporting](docs/reporting.md) for the report commands.
 
 The earlier AgRobTomato workflow remains available:
 
@@ -107,7 +104,7 @@ The COCO file names are examples; point the flags to the actual extracted files.
 
 ## Source and dependency licenses
 
-AerialYield-T2M is released under [CC BY 4.0](https://zenodo.org/records/22071809/files/LICENSE?download=1). AgRobTomato is cited in [Dataset](docs/dataset.md); the official Zenodo API records CC BY 4.0. Cropped, annotated AgRob examples are distributed with [attribution](output/examples/ATTRIBUTION.md); the full datasets stay local. The original tomatOD source states CC BY-NC-SA 4.0. Ultralytics distributes its software and models under AGPL-3.0 or a separate enterprise license; review those terms before deploying or distributing a derivative system. This repository does not commit datasets or trained weights.
+AerialYield-T2M is released under [CC BY 4.0](https://zenodo.org/records/22071809/files/LICENSE?download=1). AgRobTomato is cited in [Dataset](docs/dataset.md); the official Zenodo API records CC BY 4.0. The original and prepared images are distributed with [attribution](data/README.md). The original tomatOD source states CC BY-NC-SA 4.0; its images are not included. Ultralytics distributes its software and models under AGPL-3.0 or a separate enterprise license; review those terms before deploying or distributing a derivative system. The experiment checkpoints are included for reproducibility, without a validated harvest policy.
 
 ## Repository map
 
@@ -124,6 +121,8 @@ AerialYield-T2M is released under [CC BY 4.0](https://zenodo.org/records/2207180
 | `src/fruit_harvest/cli.py` | Reproducible user commands |
 | `scripts/` | Source split audit, licensed visual examples, and PDF/chart generation |
 | `output/` | Published metric snapshots, figures, examples, and PDF reports |
+| `data/` | Attributed source images, annotations, and prepared YOLO splits |
+| `artifacts/` | Recorded training runs, checkpoints, ONNX export, and evaluations |
 | `docs/` | Architecture, data provenance, and experiment guidance |
 
 Read [Architecture](docs/architecture.md) for the contracts and [Experiments](docs/experiments.md) for metrics and interpretation.
@@ -136,7 +135,7 @@ The [reproducible report guide](docs/reporting.md) explains how to regenerate th
 
 The [AerialYield technical report](output/aerial/pdf/relatorio_tecnico_tomates.pdf) presents the split, three training profiles, curves, class balance, per-class metrics, confusion matrix, and [licensed visual examples](output/aerial/examples/ATTRIBUTION.md). The source has 677 unique images; the processed split is 477/105/95 images. Only `Red` (>90% red) maps to `ripe`.
 
-The selected 11-epoch, 512 px CPU checkpoint reached **80.0% detection precision**, **40.1% detection recall**, and **47.4% mAP@0.5** on the 95-image held-out test split. Accuracy among 1,634 matched fruits was **94.3%**, but macro F1 was **59.3%** and **none of the 13 matched ripe fruits were classified as ripe**. One additional ripe fruit was missed. The model does **not** provide a validated harvest recommendation. Dataset images and model weights are not in Git; the published [metric snapshots](output/aerial/metrics/) and [graphs](output/aerial/figures/) can be inspected without retraining.
+The selected 11-epoch, 512 px CPU checkpoint reached **80.0% detection precision**, **40.1% detection recall**, and **47.4% mAP@0.5** on the 95-image held-out test split. Accuracy among 1,634 matched fruits was **94.3%**, but macro F1 was **59.3%** and **none of the 13 matched ripe fruits were classified as ripe**. One additional ripe fruit was missed. The model does **not** provide a validated harvest recommendation. The [checkpoint](artifacts/runs/aerial-adamw-highres/weights/best.pt), [metric snapshots](output/aerial/metrics/), and [graphs](output/aerial/figures/) are available for inspection and replay.
 
 ![AerialYield training losses and validation mAP](output/aerial/figures/training_curves.png)
 

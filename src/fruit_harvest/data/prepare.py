@@ -100,7 +100,8 @@ def prepare_dataset(
         counts[split] = {"images": len(rows), "objects": dict(class_counts)}
 
     dataset_yaml = {
-        "path": str(output.resolve()), "train": "images/train", "val": "images/val",
+        # Keep a relative output portable when the project is cloned elsewhere.
+        "path": str(output), "train": "images/train", "val": "images/val",
         "test": "images/test", "names": dict(enumerate(CLASS_NAMES)),
     }
     (output / "dataset.yaml").write_text(yaml.safe_dump(dataset_yaml, sort_keys=False), encoding="utf-8")

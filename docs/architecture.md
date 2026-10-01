@@ -39,7 +39,7 @@ The `data/` package contains small source adapters (`coco.py`, `voc.py`, and `ae
 
 The diagram describes the intended deployment workflow. The published CPU experiments evaluate PyTorch checkpoints. An ONNX candidate needs its own validation and test results before using its scores for harvest decisions.
 
-The scripts in `scripts/` do not affect inference. `audit_aerial_splits.py` records source integrity, `make_examples.py` draws labeled examples from held-out images, and `build_report.py` creates figures, public metric snapshots, and a PDF from saved experiment records. Training and evaluation parameters live in YAML files under `configs/`; each run has its own `args.yaml` and result CSV under ignored `artifacts/`.
+The scripts in `scripts/` do not affect inference. `audit_aerial_splits.py` records source integrity, `make_examples.py` draws labeled examples from held-out images, and `build_report.py` creates figures, public metric snapshots, and a PDF from saved experiment records. Training and evaluation parameters live in YAML files under `configs/`; published runs retain their `args.yaml`, results CSV, and checkpoints under `artifacts/`. New runs are ignored by default until selected for publication.
 
 ## Prediction JSON contract
 

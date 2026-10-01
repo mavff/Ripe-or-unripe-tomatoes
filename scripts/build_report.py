@@ -35,6 +35,7 @@ class Experiment:
     history: str
     validation: str
     test: str
+    checkpoint: str
     source_note: str
     training_note: str
 
@@ -46,6 +47,7 @@ EXPERIMENTS = {
         "artifacts/runs/smoke-adamw-cosine/results.csv",
         "artifacts/evaluation/smoke-adamw-validation-report/report.json",
         "artifacts/evaluation/smoke-adamw-test/report.json",
+        "artifacts/runs/smoke-adamw-cosine/weights/best.pt",
         "449 imagens; unriped → não maduro, breaking/reddish → intermediário, riped → maduro. "
         "Quadros próximos do vídeo foram mantidos em blocos de 20 (semente 42).",
         "Entrada de 320 px, batch 4 e limite de 0,04 hora em CPU.",
@@ -56,6 +58,7 @@ EXPERIMENTS = {
         "artifacts/runs/aerial-adamw-highres/results.csv",
         "artifacts/evaluation/aerial-highres-validation/report.json",
         "artifacts/evaluation/aerial-test/report.json",
+        "artifacts/runs/aerial-adamw-highres/weights/best.pt",
         "677 imagens; Green → não maduro, Breakers/Turning/Pink/Light Red → intermediário "
         "e somente Red (>90% vermelho) → maduro. As listas COCO oficiais definem as partições; "
         "312 cópias repetidas entre pastas no ZIP YOLO foram filtradas para impedir vazamento.",
@@ -76,13 +79,14 @@ def read_experiment(root: Path, experiment: Experiment) -> tuple[dict, list[dict
     return manifest, history, validation, test
 
 
-def save_snapshot(output: Path, manifest: dict, history: list[dict], validation: dict, test: dict) -> None:
-    """Keep the numbers behind the PDF in Git without publishing local paths."""
+def save_snapshot(output: Path, manifest: dict, history: list[dict], validation: dict,
+                  test: dict, checkpoint: str) -> None:
+    """Keep the numbers behind the PDF with a portable checkpoint path."""
     output.mkdir(parents=True, exist_ok=True)
     (output / "dataset_manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     for split, report in (("validation", validation), ("test", test)):
         public_report = dict(report)
-        public_report["weights"] = "Local best.pt; weights are not distributed"
+        public_report["weights"] = checkpoint
         (output / f"{split}_report.json").write_text(
             json.dumps(public_report, indent=2, ensure_ascii=False) + "\n"
         )
@@ -255,8 +259,8 @@ def build_pdf(path: Path, author: str, details: str, manifest: dict, history: li
     add(table(rows, [100, 75, 110, 110, 110], s["small"]))
     add(Spacer(1, 8))
     add(paragraph(f"Fonte: <link href='{experiment.dataset_url}'>{experiment.name} (Zenodo)</link>. "
-                  + escape(experiment.source_note) + " Licença CC BY 4.0; apenas dois recortes anotados "
-                  "são republicados, com crédito.", s["small"]))
+                  + escape(experiment.source_note) + " Licença CC BY 4.0; imagens originais e "
+                  "versões preparadas são republicadas com crédito.", s["small"]))
     add(paragraph("Modelo e autoria", s["section"]))
     add(paragraph("YOLO11n de detecção, implementado em PyTorch pelo Ultralytics. O ajuste usa pesos "
                   "pré-treinados em COCO (transfer learning), AdamW, decaimento de taxa cossenoidal e "
@@ -273,8 +277,8 @@ def build_pdf(path: Path, author: str, details: str, manifest: dict, history: li
                   "decisão de colheita no teste após selecionar a política na validação. A integração "
                   "do braço exigirá calibração e controle.", s["body"]))
     add(paragraph(f"Dataset: <link href='{experiment.dataset_url}'>{experiment.dataset_url}</link><br/>"
-                  f"Código e dados da avaliação: <link href='{REPO_URL}'>{REPO_URL}</link>. "
-                  "O conjunto completo de imagens e os pesos do modelo não são distribuídos.", s["small"]))
+                  f"Código, imagens, anotações e checkpoint: <link href='{REPO_URL}'>{REPO_URL}</link>. "
+                  "Os ZIPs originais acima de 100 MiB estão disponíveis na fonte Zenodo.", s["small"]))
 
     add(PageBreak())
     add(paragraph("Treinamento e distribuição", s["title"]))
@@ -395,7 +399,8 @@ def main() -> None:
     experiment = EXPERIMENTS[args.experiment]
     manifest, history, validation, test = read_experiment(root, experiment)
     output = (root / args.output).resolve()
-    save_snapshot(output / "metrics", manifest, history, validation, test)
+    save_snapshot(output / "metrics", manifest, history, validation, test,
+                  experiment.checkpoint)
     charts = save_figures(output / "figures", manifest, history, test)
     comparison_path = output / "metrics/validation_comparison.json"
     comparison = (json.loads(comparison_path.read_text(encoding="utf-8"))

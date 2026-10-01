@@ -4,7 +4,10 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
-/data/
+/data/raw/agrob.zip
+/data/raw/aerial-yolo.zip
+/data/raw/tomatod/
+*.cache
 /artifacts/
 /runs/
 *.pt

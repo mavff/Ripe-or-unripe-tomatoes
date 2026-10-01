@@ -2,7 +2,7 @@
   "schema_version": 1,
   "split": "test",
   "images": 90,
-  "weights": "Local best.pt; weights are not distributed",
+  "weights": "artifacts/runs/smoke-adamw-cosine/weights/best.pt",
   "matching_iou": 0.5,
   "detector_metrics": {
     "metrics/precision(B)": 0.5621375234691487,

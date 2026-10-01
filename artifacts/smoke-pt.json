@@ -1,0 +1,563 @@
+{
+  "schema_version": 1,
+  "results": [
+    {
+      "schema_version": 1,
+      "image": "data/agrob-processed/images/test/tomate_barroselas_20200806_0081.jpg",
+      "width": 1280,
+      "height": 720,
+      "detections": [
+        {
+          "bbox_xyxy": [
+            460.16,
+            450.86,
+            498.86,
+            499.33
+          ],
+          "class_name": "unripe",
+          "confidence": 0.633209,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            861.68,
+            497.94,
+            910.24,
+            552.94
+          ],
+          "class_name": "unripe",
+          "confidence": 0.623366,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1108.35,
+            595.51,
+            1148.44,
+            638.12
+          ],
+          "class_name": "unripe",
+          "confidence": 0.585458,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            901.41,
+            183.71,
+            934.04,
+            218.87
+          ],
+          "class_name": "unripe",
+          "confidence": 0.535813,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            60.78,
+            470.76,
+            95.1,
+            516.24
+          ],
+          "class_name": "unripe",
+          "confidence": 0.531046,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            98.9,
+            351.16,
+            127.41,
+            386.27
+          ],
+          "class_name": "unripe",
+          "confidence": 0.453095,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            44.55,
+            598.56,
+            73.84,
+            642.96
+          ],
+          "class_name": "unripe",
+          "confidence": 0.423557,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            28.71,
+            598.98,
+            58.94,
+            642.35
+          ],
+          "class_name": "unripe",
+          "confidence": 0.394601,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            623.6,
+            199.23,
+            656.08,
+            242.8
+          ],
+          "class_name": "unripe",
+          "confidence": 0.38934,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            471.14,
+            448.95,
+            515.11,
+            500.36
+          ],
+          "class_name": "unripe",
+          "confidence": 0.377219,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            430.22,
+            661.18,
+            462.1,
+            697.21
+          ],
+          "class_name": "unripe",
+          "confidence": 0.356437,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            45.1,
+            595.75,
+            81.78,
+            639.47
+          ],
+          "class_name": "unripe",
+          "confidence": 0.350247,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            631.67,
+            187.12,
+            667.71,
+            228.59
+          ],
+          "class_name": "unripe",
+          "confidence": 0.322746,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            635.85,
+            183.41,
+            676.04,
+            225.61
+          ],
+          "class_name": "unripe",
+          "confidence": 0.320833,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1083.08,
+            439.83,
+            1119.26,
+            486.76
+          ],
+          "class_name": "unripe",
+          "confidence": 0.31076,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            111.6,
+            351.73,
+            144.95,
+            384.52
+          ],
+          "class_name": "unripe",
+          "confidence": 0.279686,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            6.8,
+            600.45,
+            48.97,
+            644.95
+          ],
+          "class_name": "unripe",
+          "confidence": 0.260032,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            644.14,
+            103.07,
+            668.88,
+            129.77
+          ],
+          "class_name": "unripe",
+          "confidence": 0.250261,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1256.03,
+            162.52,
+            1280.0,
+            199.46
+          ],
+          "class_name": "unripe",
+          "confidence": 0.245832,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            828.27,
+            508.75,
+            870.37,
+            553.2
+          ],
+          "class_name": "unripe",
+          "confidence": 0.245282,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            483.77,
+            445.37,
+            528.66,
+            497.46
+          ],
+          "class_name": "unripe",
+          "confidence": 0.235351,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            874.55,
+            178.54,
+            906.04,
+            213.59
+          ],
+          "class_name": "unripe",
+          "confidence": 0.209607,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1247.52,
+            59.1,
+            1278.64,
+            97.92
+          ],
+          "class_name": "unripe",
+          "confidence": 0.197671,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1252.56,
+            208.08,
+            1279.52,
+            257.89
+          ],
+          "class_name": "unripe",
+          "confidence": 0.196272,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            873.17,
+            184.41,
+            903.42,
+            217.69
+          ],
+          "class_name": "unripe",
+          "confidence": 0.188363,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            826.41,
+            496.7,
+            867.02,
+            537.51
+          ],
+          "class_name": "unripe",
+          "confidence": 0.187747,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            459.57,
+            422.2,
+            502.71,
+            460.24
+          ],
+          "class_name": "unripe",
+          "confidence": 0.177139,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            463.08,
+            447.65,
+            506.63,
+            504.26
+          ],
+          "class_name": "unripe",
+          "confidence": 0.146479,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            682.38,
+            485.66,
+            715.32,
+            530.88
+          ],
+          "class_name": "unripe",
+          "confidence": 0.145376,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            47.42,
+            458.95,
+            85.5,
+            499.55
+          ],
+          "class_name": "unripe",
+          "confidence": 0.140998,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            480.42,
+            294.0,
+            511.82,
+            325.02
+          ],
+          "class_name": "unripe",
+          "confidence": 0.131161,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1104.07,
+            594.92,
+            1151.41,
+            650.36
+          ],
+          "class_name": "unripe",
+          "confidence": 0.126619,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            2.45,
+            596.59,
+            54.6,
+            651.71
+          ],
+          "class_name": "unripe",
+          "confidence": 0.11941,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            79.89,
+            351.52,
+            117.98,
+            382.86
+          ],
+          "class_name": "unripe",
+          "confidence": 0.117978,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            616.43,
+            218.06,
+            644.68,
+            252.4
+          ],
+          "class_name": "unripe",
+          "confidence": 0.114559,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            622.89,
+            102.87,
+            649.33,
+            126.41
+          ],
+          "class_name": "unripe",
+          "confidence": 0.111462,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            90.64,
+            337.87,
+            123.18,
+            378.37
+          ],
+          "class_name": "unripe",
+          "confidence": 0.108068,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            79.44,
+            309.27,
+            110.63,
+            341.15
+          ],
+          "class_name": "unripe",
+          "confidence": 0.100955,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            286.06,
+            291.65,
+            315.18,
+            321.33
+          ],
+          "class_name": "unripe",
+          "confidence": 0.09188,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            88.96,
+            362.55,
+            122.06,
+            394.64
+          ],
+          "class_name": "unripe",
+          "confidence": 0.086817,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            47.67,
+            467.76,
+            92.09,
+            514.24
+          ],
+          "class_name": "unripe",
+          "confidence": 0.080507,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            630.44,
+            212.68,
+            660.41,
+            249.6
+          ],
+          "class_name": "unripe",
+          "confidence": 0.079301,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            899.58,
+            182.5,
+            944.3,
+            220.3
+          ],
+          "class_name": "unripe",
+          "confidence": 0.074452,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            58.62,
+            469.87,
+            101.22,
+            522.39
+          ],
+          "class_name": "unripe",
+          "confidence": 0.072145,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            815.06,
+            509.14,
+            856.75,
+            548.2
+          ],
+          "class_name": "unripe",
+          "confidence": 0.067528,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            641.99,
+            191.89,
+            675.1,
+            237.46
+          ],
+          "class_name": "unripe",
+          "confidence": 0.064237,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            650.7,
+            187.16,
+            688.59,
+            227.38
+          ],
+          "class_name": "unripe",
+          "confidence": 0.06359,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            79.49,
+            311.41,
+            114.34,
+            351.51
+          ],
+          "class_name": "unripe",
+          "confidence": 0.057554,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            1231.66,
+            66.56,
+            1269.39,
+            102.87
+          ],
+          "class_name": "unripe",
+          "confidence": 0.054438,
+          "decision": "wait"
+        },
+        {
+          "bbox_xyxy": [
+            854.8,
+            510.05,
+            898.81,
+            568.57
+          ],
+          "class_name": "unripe",
+          "confidence": 0.053641,
+          "decision": "wait"
+        }
+      ]
+    }
+  ]
+}

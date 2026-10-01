@@ -1,0 +1,8 @@
+path: data/aerial-processed
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: unripe
+  1: semi_ripe
+  2: ripe

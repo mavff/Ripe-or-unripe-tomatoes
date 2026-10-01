@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-30T19:39:13.372428+00:00",
+  "model_family": "YOLO11n",
+  "task": "tomato_ripeness_detection",
+  "classes": [
+    "unripe",
+    "semi_ripe",
+    "ripe"
+  ],
+  "image_size": 320,
+  "preprocessing": "Ultralytics letterbox, RGB, values normalized to [0, 1]",
+  "bbox_format": "xyxy in original image pixels",
+  "decision": {
+    "harvest_only_class": "ripe",
+    "ripe_threshold": 0.5
+  },
+  "files": {
+    "pytorch": {
+      "name": "best.pt",
+      "sha256": "1722b5c4cfdac7612e2a39d1b2fd687a5d54df11b889b357c086540dcb015068"
+    },
+    "onnx": {
+      "name": "model.onnx",
+      "sha256": "6dd91b2e56ba44fd189e787ec0cf9178899316e10fd9701d3cc09403ccb276ce"
+    }
+  },
+  "dependencies": {
+    "ultralytics": "8.4.170",
+    "onnxruntime": "1.30.0"
+  }
+}

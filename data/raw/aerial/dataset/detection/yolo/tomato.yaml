@@ -1,0 +1,12 @@
+path: E:\Afeefa_code\Tomato_dataset\outputs\tomato_benchmark_677\03_detection\yolo
+train: images/train
+val: images/val
+test: images/test
+nc: 6
+names:
+  0: Green
+  1: Breakers
+  2: Turning
+  3: Pink
+  4: Light Red
+  5: Red
