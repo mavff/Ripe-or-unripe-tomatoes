@@ -1,0 +1,47 @@
+{
+  "split": "test",
+  "image_credit": "Afeefa Azam, AerialYield-T2M",
+  "source_url": "https://zenodo.org/records/22071809",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "modifications": "Cropped and overlaid ground-truth/prediction boxes and text",
+  "confidence_floor": 0.05,
+  "matching_iou": 0.5,
+  "correct": {
+    "image": "dji_125744_frame_007300.jpg",
+    "truth": "unripe",
+    "truth_bbox_xyxy": [
+      491.20000000000005,
+      703.99999488,
+      536.0,
+      785.06666496
+    ],
+    "prediction": "unripe",
+    "prediction_bbox_xyxy": [
+      494.77197265625,
+      705.2850341796875,
+      535.0574951171875,
+      786.0831298828125
+    ],
+    "confidence": 0.9907655715942383,
+    "iou": 0.8751091812084851
+  },
+  "incorrect": {
+    "image": "20260416_123459_000319.jpg",
+    "truth": "ripe",
+    "truth_bbox_xyxy": [
+      792.1777715200001,
+      541.3333299200001,
+      895.76295936,
+      606.93332992
+    ],
+    "prediction": "semi_ripe",
+    "prediction_bbox_xyxy": [
+      794.0170288085938,
+      539.8663330078125,
+      893.8049926757812,
+      605.3038330078125
+    ],
+    "confidence": 0.9717958569526672,
+    "iou": 0.9196017403651054
+  }
+}

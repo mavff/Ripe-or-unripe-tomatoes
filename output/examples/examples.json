@@ -1,0 +1,47 @@
+{
+  "split": "test",
+  "image_credit": "Sandro Augusto Magalhães, Germano Moreira, Filipe Neves dos Santos e Mário Cunha, AgRobTomato",
+  "source_url": "https://zenodo.org/records/5596799",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "modifications": "Cropped and overlaid ground-truth/prediction boxes and text",
+  "confidence_floor": 0.05,
+  "matching_iou": 0.5,
+  "correct": {
+    "image": "tomates_2020-08-06-11-35-15_side_0071.jpg",
+    "truth": "unripe",
+    "truth_bbox_xyxy": [
+      1177.2,
+      212.32999800000002,
+      1255.1699968,
+      291.38000040000003
+    ],
+    "prediction": "unripe",
+    "prediction_bbox_xyxy": [
+      1181.236328125,
+      211.2751922607422,
+      1238.492919921875,
+      275.44085693359375
+    ],
+    "confidence": 0.9796847105026245,
+    "iou": 0.5805844125536911
+  },
+  "incorrect": {
+    "image": "tomates_2020-08-06-11-35-15_side_0229.jpg",
+    "truth": "ripe",
+    "truth_bbox_xyxy": [
+      970.2499968,
+      564.7000032000001,
+      1060.1399936,
+      683.8199999999999
+    ],
+    "prediction": "unripe",
+    "prediction_bbox_xyxy": [
+      971.7515869140625,
+      567.99658203125,
+      1055.711669921875,
+      668.816162109375
+    ],
+    "confidence": 0.9233085513114929,
+    "iou": 0.7905360974460921
+  }
+}

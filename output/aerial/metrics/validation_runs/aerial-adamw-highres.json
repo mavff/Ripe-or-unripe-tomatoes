@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "split": "val",
+  "images": 105,
+  "weights": "Local best.pt; weights are not distributed",
+  "matching_iou": 0.5,
+  "detector_metrics": {
+    "metrics/precision(B)": 0.8250611599319337,
+    "metrics/recall(B)": 0.3890325507347983,
+    "metrics/mAP50(B)": 0.4462029710035362,
+    "metrics/mAP50-95(B)": 0.3178614319150234,
+    "fitness": 0.3178614319150234
+  },
+  "per_class_detection": {
+    "unripe": {
+      "images": 104,
+      "instances": 1467,
+      "precision": 0.71909636,
+      "recall": 0.56646217,
+      "f1": 0.63371815,
+      "map50": 0.61322489,
+      "map50_95": 0.40439466
+    },
+    "semi_ripe": {
+      "images": 99,
+      "instances": 449,
+      "precision": 0.75608712,
+      "recall": 0.60063548,
+      "f1": 0.66945557,
+      "map50": 0.69743094,
+      "map50_95": 0.53500907
+    },
+    "ripe": {
+      "images": 17,
+      "instances": 21,
+      "precision": 1.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "map50": 0.02795308,
+      "map50_95": 0.01418057
+    }
+  },
+  "matched_class_confusion": {
+    "unripe": {
+      "unripe": 1052,
+      "semi_ripe": 26,
+      "ripe": 0
+    },
+    "semi_ripe": {
+      "unripe": 109,
+      "semi_ripe": 284,
+      "ripe": 0
+    },
+    "ripe": {
+      "unripe": 2,
+      "semi_ripe": 14,
+      "ripe": 0
+    }
+  },
+  "ground_truth_objects": {
+    "unripe": 1467,
+    "semi_ripe": 449,
+    "ripe": 21
+  },
+  "unmatched_predictions": {
+    "unripe": 2425,
+    "semi_ripe": 422,
+    "ripe": 0
+  },
+  "matched_objects": 1487,
+  "matched_classification": {
+    "accuracy": 0.898453261600538,
+    "per_class": {
+      "unripe": {
+        "support": 1078,
+        "precision": 0.9045571797076526,
+        "recall": 0.9758812615955473,
+        "f1": 0.9388665774207943
+      },
+      "semi_ripe": {
+        "support": 393,
+        "precision": 0.8765432098765432,
+        "recall": 0.72264631043257,
+        "f1": 0.792189679218968
+      },
+      "ripe": {
+        "support": 16,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "macro_f1": 0.577018752213254
+  },
+  "policy_status": "unavailable_no_ripe_true_positives",
+  "harvest_threshold": null,
+  "harvest_decision": null,
+  "error_examples": [
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "semi_ripe",
+      "truth_bbox_xyxy": [
+        897.86667008,
+        842.6666649599999,
+        1024.0,
+        1023.99999488
+      ],
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        896.7862548828125,
+        845.97265625,
+        1023.7999267578125,
+        1024.0
+      ],
+      "confidence": 0.7444713711738586
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "unripe",
+      "truth_bbox_xyxy": [
+        828.6666700799999,
+        13.748142079999994,
+        987.20000512,
+        182.75555328000002
+      ],
+      "prediction": "missed"
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        200.66796875,
+        590.3934326171875,
+        280.7563781738281,
+        644.59033203125
+      ],
+      "confidence": 0.13074304163455963
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        728.5455322265625,
+        0.1099853515625,
+        781.5152587890625,
+        67.09881591796875
+      ],
+      "confidence": 0.12406876683235168
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "semi_ripe",
+      "prediction_bbox_xyxy": [
+        893.79443359375,
+        842.59912109375,
+        1024.0,
+        1024.0
+      ],
+      "confidence": 0.11573277413845062
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        474.92120361328125,
+        0.0,
+        509.83673095703125,
+        38.869503021240234
+      ],
+      "confidence": 0.09042230993509293
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        201.16943359375,
+        587.9028930664062,
+        286.752197265625,
+        680.2056274414062
+      ],
+      "confidence": 0.0880073606967926
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        568.1181030273438,
+        0.011636734008789062,
+        594.1738891601562,
+        21.988985061645508
+      ],
+      "confidence": 0.08284682035446167
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        449.72955322265625,
+        0.106292724609375,
+        482.48748779296875,
+        28.966854095458984
+      ],
+      "confidence": 0.07928910106420517
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        201.01100158691406,
+        589.36328125,
+        247.1077117919922,
+        647.53076171875
+      ],
+      "confidence": 0.07777606695890427
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        206.43948364257812,
+        590.1961059570312,
+        285.8333740234375,
+        630.4790649414062
+      ],
+      "confidence": 0.07408548146486282
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        239.5764617919922,
+        650.2923583984375,
+        283.10040283203125,
+        722.5460205078125
+      ],
+      "confidence": 0.05761318653821945
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        445.4286193847656,
+        0.0,
+        490.1500549316406,
+        43.00318908691406
+      ],
+      "confidence": 0.057514213025569916
+    },
+    {
+      "image": "20260416_123109_001809.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        233.42733764648438,
+        590.1671142578125,
+        287.3017883300781,
+        621.2061767578125
+      ],
+      "confidence": 0.051352594047784805
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "ripe",
+      "truth_bbox_xyxy": [
+        683.86667008,
+        91.49629952000001,
+        717.3333350400001,
+        189.1555584
+      ],
+      "prediction": "semi_ripe",
+      "prediction_bbox_xyxy": [
+        685.0941162109375,
+        95.20904541015625,
+        718.3367919921875,
+        185.67892456054688
+      ],
+      "confidence": 0.41930168867111206
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "unripe",
+      "truth_bbox_xyxy": [
+        583.86666496,
+        182.28147711999998,
+        703.2,
+        461.51111168
+      ],
+      "prediction": "missed"
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "semi_ripe",
+      "truth_bbox_xyxy": [
+        444.53333504,
+        379.4962944,
+        484.13332992000005,
+        444.20740096
+      ],
+      "prediction": "missed"
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "semi_ripe",
+      "prediction_bbox_xyxy": [
+        0.6208724975585938,
+        646.095947265625,
+        39.71430206298828,
+        702.38134765625
+      ],
+      "confidence": 0.3942689299583435
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        557.550537109375,
+        870.4556884765625,
+        716.99072265625,
+        1023.6126708984375
+      ],
+      "confidence": 0.23502135276794434
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        6.662541389465332,
+        235.3553466796875,
+        36.90410232543945,
+        283.92218017578125
+      ],
+      "confidence": 0.15324276685714722
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "semi_ripe",
+      "prediction_bbox_xyxy": [
+        707.8543701171875,
+        176.99105834960938,
+        754.6640625,
+        251.73062133789062
+      ],
+      "confidence": 0.09616639465093613
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        127.00186920166016,
+        547.5037841796875,
+        173.21078491210938,
+        577.3748779296875
+      ],
+      "confidence": 0.08052081614732742
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        123.72337341308594,
+        546.2198486328125,
+        171.1378631591797,
+        628.716796875
+      ],
+      "confidence": 0.06894078105688095
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        133.867431640625,
+        606.3644409179688,
+        178.24786376953125,
+        659.4274291992188
+      ],
+      "confidence": 0.05940157175064087
+    },
+    {
+      "image": "20260416_123109_001819.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        269.5072937011719,
+        71.96934509277344,
+        291.3316345214844,
+        103.29634094238281
+      ],
+      "confidence": 0.05902270972728729
+    },
+    {
+      "image": "20260416_123109_001829.jpg",
+      "truth": "unripe",
+      "truth_bbox_xyxy": [
+        462.66667008,
+        99.31851775999999,
+        509.46666496,
+        147.91110656
+      ],
+      "prediction": "missed"
+    },
+    {
+      "image": "20260416_123109_001829.jpg",
+      "truth": "unripe",
+      "truth_bbox_xyxy": [
+        91.86666496,
+        188.44444671999997,
+        170.26666496,
+        303.17037568
+      ],
+      "prediction": "missed"
+    },
+    {
+      "image": "20260416_123109_001829.jpg",
+      "truth": "none",
+      "prediction": "unripe",
+      "prediction_bbox_xyxy": [
+        90.33012390136719,
+        191.80921936035156,
+        131.25999450683594,
+        218.6801300048828
+      ],
+      "confidence": 0.16491436958312988
+    },
+    {
+      "image": "20260416_123109_001829.jpg",
+      "truth": "none",
+      "prediction": "semi_ripe",
+      "prediction_bbox_xyxy": [
+        0.1100921630859375,
+        250.05287170410156,
+        38.009979248046875,
+        387.0013427734375
+      ],
+      "confidence": 0.1445472091436386
+    },
+    {
+      "image": "20260416_123109_001839.jpg",
+      "truth": "unripe",
+      "truth_bbox_xyxy": [
+        32.666670079999996,
+        0.23704063999999647,
+        116.4,
+        85.80740607999999
+      ],
+      "prediction": "missed"
+    }
+  ],
+  "total_errors": 3448
+}

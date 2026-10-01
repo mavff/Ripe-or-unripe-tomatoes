@@ -8,8 +8,8 @@ from importlib.metadata import version
 from pathlib import Path
 
 from fruit_harvest.decision import HarvestPolicy
-from fruit_harvest.model import load_detector
-from fruit_harvest.taxonomy import CLASS_NAMES, canonical_class
+from fruit_harvest.model import detector_class_names, export_detector_onnx, load_detector
+from fruit_harvest.taxonomy import CLASS_NAMES
 
 
 def _sha256(path: Path) -> str:
@@ -33,7 +33,7 @@ def export_bundle(
     checkpoint = output / "best.pt"
     shutil.copy2(weights, checkpoint)
     detector = load_detector(checkpoint)
-    model_names = [canonical_class(detector.names[index]) for index in range(len(detector.names))]
+    model_names = detector_class_names(detector)
     if model_names != list(CLASS_NAMES):
         raise ValueError(f"Model classes {model_names} do not match the export contract")
     onnx = output / "model.onnx"
@@ -47,9 +47,7 @@ def export_bundle(
             raise ValueError("ONNX candidate does not match this checkpoint and model contract")
         shutil.copy2(onnx_source, onnx)
     else:
-        exported = Path(
-            detector.export(format="onnx", imgsz=image_size, device="cpu", simplify=False, dynamic=False)
-        )
+        exported = export_detector_onnx(detector, image_size)
         exported.replace(onnx)
     manifest = {
         "schema_version": 1,

@@ -1,0 +1,48 @@
+{
+  "selection_rule": "validated harvest policy; then validation harvest F1, matched ripe F1, matched macro F1, detection mAP50",
+  "selected_run": "512px, peso 0.50",
+  "selected_checkpoint": "artifacts/runs/aerial-adamw-highres/weights/best.pt",
+  "selected_config": "configs/aerial-cpu-highres.yaml",
+  "runs": {
+    "320px, peso 0.25": {
+      "train_run": "aerial-adamw-cosine",
+      "config": "configs/aerial-cpu.yaml",
+      "policy_status": "unavailable_no_ripe_true_positives",
+      "detection_map50": 0.3842529301896958,
+      "matched_macro_f1": 0.5552468891901258,
+      "matched_ripe_support": 10,
+      "matched_ripe_precision": 0.0,
+      "matched_ripe_recall": 0.0,
+      "matched_ripe_f1": 0.0,
+      "validation_harvest_f1": null,
+      "validation_harvest_precision": null
+    },
+    "320px, peso 0.75": {
+      "train_run": "aerial-adamw-classweight",
+      "config": "configs/aerial-cpu-classweight.yaml",
+      "policy_status": "unavailable_no_ripe_true_positives",
+      "detection_map50": 0.3577940211887855,
+      "matched_macro_f1": 0.5338279455926515,
+      "matched_ripe_support": 12,
+      "matched_ripe_precision": 0.0,
+      "matched_ripe_recall": 0.0,
+      "matched_ripe_f1": 0.0,
+      "validation_harvest_f1": null,
+      "validation_harvest_precision": null
+    },
+    "512px, peso 0.50": {
+      "train_run": "aerial-adamw-highres",
+      "config": "configs/aerial-cpu-highres.yaml",
+      "policy_status": "unavailable_no_ripe_true_positives",
+      "detection_map50": 0.4462029710035362,
+      "matched_macro_f1": 0.577018752213254,
+      "matched_ripe_support": 16,
+      "matched_ripe_precision": 0.0,
+      "matched_ripe_recall": 0.0,
+      "matched_ripe_f1": 0.0,
+      "validation_harvest_f1": null,
+      "validation_harvest_precision": null
+    }
+  },
+  "test_set_used_for_selection": false
+}

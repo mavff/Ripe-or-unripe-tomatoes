@@ -8,7 +8,7 @@ import yaml
 
 from fruit_harvest.decision import HarvestPolicy
 from fruit_harvest.metrics import MatchRecord, ground_truth_for, harvest_counts, match_detections
-from fruit_harvest.model import load_detector, predict_image
+from fruit_harvest.model import load_detector, predict_image, validate_detector
 from fruit_harvest.taxonomy import CLASS_NAMES
 
 
@@ -21,11 +21,14 @@ def evaluate_model(
     min_confidence: float,
     match_iou: float,
     policy: HarvestPolicy | None = None,
+    detection_only: bool = False,
 ) -> dict:
     if split not in {"val", "test"}:
         raise ValueError("Evaluation split must be val or test")
-    if split == "test" and policy is None:
-        raise ValueError("A validation-selected policy is required for the test split")
+    if split == "test" and policy is None and not detection_only:
+        raise ValueError("Test requires a validation-selected policy or detection_only=True")
+    if detection_only and (split != "test" or policy is not None):
+        raise ValueError("Detection-only mode requires test split without a policy")
     if output.exists() and any(output.iterdir()):
         raise FileExistsError(f"Evaluation output directory is not empty: {output}")
     output.mkdir(parents=True, exist_ok=True)
@@ -36,24 +39,18 @@ def evaluate_model(
     if not images:
         raise ValueError(f"No images in {image_dir}")
     detector = load_detector(weights)
-    detector_metrics = detector.val(
-        data=str(dataset_yaml.resolve()),
-        split=split,
-        imgsz=image_size,
-        device="cpu",
-        workers=0,
-        plots=True,
-        project=str(output.resolve()),
-        name="detector",
-        exist_ok=True,
-        verbose=False,
+    detector_metrics, per_class_detection = validate_detector(
+        detector, dataset_yaml, split, image_size, output
     )
     records: list[MatchRecord] = []
     confusion = {truth: Counter() for truth in CLASS_NAMES}
+    ground_truth_counts = Counter()
+    unmatched_prediction_counts = Counter()
     errors = []
     for image in images:
         predicted = predict_image(detector, image, HarvestPolicy(), image_size, min_confidence)
         truths = ground_truth_for(image, predicted.width, predicted.height)
+        ground_truth_counts.update(truth_class for truth_class, _ in truths)
         record = match_detections(truths, predicted.detections, match_iou)
         records.append(record)
         for truth_index, pred_index in record.pairs:
@@ -73,13 +70,14 @@ def evaluate_model(
                 errors.append({"image": image.name, "truth": truth_class, "truth_bbox_xyxy": truth_box, "prediction": "missed"})
         for pred_index, prediction in enumerate(predicted.detections):
             if pred_index not in record.matched_prediction:
+                unmatched_prediction_counts[prediction.class_name] += 1
                 errors.append({
                     "image": image.name, "truth": "none", "prediction": prediction.class_name,
                     "prediction_bbox_xyxy": prediction.bbox_xyxy,
                     "confidence": prediction.confidence,
                 })
-    policy_status = "provided" if policy else "selected_on_validation"
-    if policy is None:
+    policy_status = "provided" if policy else "detection_only" if detection_only else "selected_on_validation"
+    if policy is None and split == "val":
         candidates = [round(value / 100, 2) for value in range(10, 96, 5)]
         threshold = max(
             candidates,
@@ -107,21 +105,25 @@ def evaluate_model(
             "recall": recall,
             "f1": 2 * precision * recall / (precision + recall) if precision + recall else 0.0,
         }
+    matched_objects = sum(sum(counts.values()) for counts in confusion.values())
+    correct_classes = sum(confusion[class_name][class_name] for class_name in CLASS_NAMES)
     report = {
         "schema_version": 1,
         "split": split,
         "images": len(images),
         "weights": str(weights.resolve()),
         "matching_iou": match_iou,
-        "detector_metrics": {
-            key: float(value) for key, value in detector_metrics.results_dict.items()
-        },
+        "detector_metrics": detector_metrics,
+        "per_class_detection": per_class_detection,
         "matched_class_confusion": {
             truth: {predicted: confusion[truth][predicted] for predicted in CLASS_NAMES}
             for truth in CLASS_NAMES
         },
-        "matched_objects": sum(sum(counts.values()) for counts in confusion.values()),
+        "ground_truth_objects": {name: ground_truth_counts[name] for name in CLASS_NAMES},
+        "unmatched_predictions": {name: unmatched_prediction_counts[name] for name in CLASS_NAMES},
+        "matched_objects": matched_objects,
         "matched_classification": {
+            "accuracy": correct_classes / matched_objects if matched_objects else 0.0,
             "per_class": class_scores,
             "macro_f1": sum(score["f1"] for score in class_scores.values()) / len(CLASS_NAMES),
         },

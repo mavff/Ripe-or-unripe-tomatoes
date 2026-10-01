@@ -5,7 +5,14 @@ import json
 from pathlib import Path
 
 from fruit_harvest.config import Settings
-from fruit_harvest.data import fetch_agrob, prepare_dataset, read_coco, read_voc
+from fruit_harvest.data import (
+    fetch_agrob,
+    fetch_aerial,
+    prepare_dataset,
+    read_aerial_yolo,
+    read_coco,
+    read_voc,
+)
 from fruit_harvest.decision import HarvestPolicy
 from fruit_harvest.evaluation import evaluate_model
 from fruit_harvest.exporting import export_bundle, load_bundle
@@ -24,6 +31,10 @@ def build_parser() -> argparse.ArgumentParser:
     data_commands = data.add_subparsers(dest="data_command", required=True)
     fetch = data_commands.add_parser("fetch-agrob", help="Download and verify AgRobTomato")
     fetch.add_argument("--output", type=_path, default=Path("data/raw"))
+    fetch_aerial_command = data_commands.add_parser(
+        "fetch-aerial", help="Download and verify AerialYield YOLO and COCO archives"
+    )
+    fetch_aerial_command.add_argument("--output", type=_path, default=Path("data/raw"))
     prepare = data_commands.add_parser("prepare", help="Convert source annotations to YOLO")
     prepare.add_argument("--format", choices=("coco", "voc"), required=True)
     prepare.add_argument("--root", type=_path, help="Pascal VOC dataset root")
@@ -32,6 +43,14 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--test-coco", type=_path)
     prepare.add_argument("--output", type=_path, default=Path("data/processed"))
     prepare.add_argument("--config", type=_path, default=Path("configs/default.yaml"))
+    aerial = data_commands.add_parser(
+        "prepare-aerial", help="Map AerialYield via leakage-free COCO split lists"
+    )
+    aerial.add_argument("--root", type=_path, default=Path("data/raw/aerial/dataset/detection/yolo"))
+    aerial.add_argument("--coco-splits", type=_path, default=Path("data/raw/aerial-coco.zip"))
+    aerial.add_argument("--output", type=_path, default=Path("data/aerial-processed"))
+    aerial.add_argument("--ripe-stage", choices=("red", "light-red"), default="red")
+    aerial.add_argument("--config", type=_path, default=Path("configs/default.yaml"))
 
     train = commands.add_parser("train", help="Fine-tune the detector")
     train.add_argument("--data", type=_path, default=Path("data/processed/dataset.yaml"))
@@ -44,7 +63,8 @@ def build_parser() -> argparse.ArgumentParser:
     evaluate.add_argument("--data", type=_path, default=Path("data/processed/dataset.yaml"))
     evaluate.add_argument("--config", type=_path, default=Path("configs/default.yaml"))
     evaluate.add_argument("--split", choices=("val", "test"), required=True)
-    evaluate.add_argument("--policy", type=_path, help="Required for test; created by validation")
+    evaluate.add_argument("--policy", type=_path, help="Validation-selected policy for test harvest metrics")
+    evaluate.add_argument("--detection-only", action="store_true", help="Evaluate test detection without a harvest policy")
     evaluate.add_argument("--output", type=_path, required=True)
 
     export = commands.add_parser("export", help="Package PyTorch and ONNX model files")
@@ -68,7 +88,20 @@ def main(argv: list[str] | None = None) -> int:
         if args.data_command == "fetch-agrob":
             print(fetch_agrob(args.output))
             return 0
+        if args.data_command == "fetch-aerial":
+            print(fetch_aerial(args.output))
+            return 0
         settings = Settings.load(args.config)
+        if args.data_command == "prepare-aerial":
+            dataset = read_aerial_yolo(args.root, args.coco_splits, args.ripe_stage)
+            result = prepare_dataset(
+                args.root / "images", dataset.splits["train"], dataset.splits["test"], args.output,
+                settings.validation_fraction, settings.seed,
+                f"AerialYield-T2M YOLO, official COCO split (ripe_stage={args.ripe_stage})",
+                dataset.splits["val"], dataset.image_sources,
+            )
+            print(json.dumps(result["counts"], indent=2))
+            return 0
         if args.format == "coco":
             if not all((args.images, args.train_coco, args.test_coco)):
                 raise SystemExit("COCO requires --images, --train-coco and --test-coco")
@@ -96,7 +129,8 @@ def main(argv: list[str] | None = None) -> int:
         policy = HarvestPolicy.load(args.policy) if args.policy else None
         result = evaluate_model(
             args.weights, args.data, args.split, args.output,
-            settings.image_size, settings.prediction_confidence, settings.match_iou, policy,
+            settings.image_size, settings.prediction_confidence, settings.match_iou,
+            policy, args.detection_only,
         )
         print(json.dumps(result, indent=2))
     elif args.command == "export":

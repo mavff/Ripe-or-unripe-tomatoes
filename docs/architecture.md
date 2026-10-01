@@ -1,7 +1,7 @@
 # Architecture and interfaces
 
 ```text
-VOC or COCO annotations + images
+AgRob VOC, tomatOD COCO, or AerialYield YOLO + official COCO split
              │
              ▼
        Data preparation ──► YOLO images, labels, dataset.yaml, split manifest
@@ -31,11 +31,15 @@ VOC or COCO annotations + images
 
 ## Module boundaries
 
-The `data/` package contains small source adapters (`coco.py` and `voc.py`), the AgRob download helper (`fetch.py`), shared annotation types (`types.py`), and dataset preparation (`prepare.py`). The adapters translate source labels to `unripe`, `semi_ripe`, and `ripe`; preparation verifies boxes and images and writes a fixed YOLO layout. Splits are made by image, never by object. For AgRobTomato video frames, adjacent groups of 20 frames stay together to reduce leakage from near-duplicate images. The original tomatOD test split is kept when supplied.
+The `data/` package contains small source adapters (`coco.py`, `voc.py`, and `aerial.py`), verified downloads (`fetch.py`), shared annotation types (`types.py`), and dataset preparation (`prepare.py`). Each adapter translates its source labels to `unripe`, `semi_ripe`, and `ripe`; preparation checks images, boxes, and split overlap before writing a fixed YOLO layout. Splits are made by image, never by object. For AgRobTomato video frames, adjacent groups of 20 frames stay together. The original tomatOD test split is kept when supplied. For AerialYield, `aerial.py` reads the official COCO membership lists before selecting images from the YOLO export, whose folders contain identical images in multiple splits. The [split audit](../output/aerial/metrics/source_split_audit.json) records the discrepancy.
 
 `model.py` is the only module that calls Ultralytics for training and prediction. It returns the project-owned `ImageResult` type. `config.py` checks training values before they reach Ultralytics. `metrics.py` contains spatial matching and harvest counts without model dependencies. `evaluation.py` orchestrates detector mAP measurement and selects a threshold on ONNX validation by F1; ties prefer precision and then the higher threshold. Test evaluation must load that saved policy.
 
 `decision.py` has no dependency on PyTorch or image data. A future controller can consume the prediction JSON without loading the training code. The final bundle copies the exact ONNX candidate used for validation and test, and includes the preprocessing description, class order, threshold, file hashes, and schema version. `.pt` and `.onnx` use the same inference adapter and JSON contract, but their numeric scores can differ; ONNX is the calibrated deployment backend.
+
+The diagram describes the intended deployment workflow. The published CPU experiments evaluate PyTorch checkpoints. An ONNX candidate needs its own validation and test results before using its scores for harvest decisions.
+
+The scripts in `scripts/` do not affect inference. `audit_aerial_splits.py` records source integrity, `make_examples.py` draws labeled examples from held-out images, and `build_report.py` creates figures, public metric snapshots, and a PDF from saved experiment records. Training and evaluation parameters live in YAML files under `configs/`; each run has its own `args.yaml` and result CSV under ignored `artifacts/`.
 
 ## Prediction JSON contract
 

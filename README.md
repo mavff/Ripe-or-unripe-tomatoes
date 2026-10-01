@@ -4,10 +4,10 @@ A small, reproducible computer vision project for detecting tomatoes on plants, 
 
 ## What the system does
 
-1. Converts annotated greenhouse images into a three-class YOLO dataset.
+1. Converts annotated greenhouse images into a three-class YOLO dataset with disjoint image splits.
 2. Fine-tunes a pretrained YOLO11 nano detector on CPU with AdamW, cosine learning-rate decay, and class-weighted classification loss.
-3. Measures detection quality and selects a harvest confidence threshold on validation images.
-4. Evaluates the selected threshold once on held-out test images.
+3. Measures detection quality and selects a harvest confidence threshold on validation images when the model finds ripe fruit correctly.
+4. Evaluates the selected threshold once on held-out test images, or reports detection metrics without a harvest decision.
 5. Exports PyTorch weights, ONNX, and a manifest describing the inference contract.
 
 The classes are `unripe`, `semi_ripe`, and `ripe`. The policy returns `harvest` only for a `ripe` detection at or above the selected threshold. All other detections return `wait`. A missing detection produces no harvest command.
@@ -23,9 +23,33 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-The dataset is not committed. See [Dataset](docs/dataset.md) for its source, licenses, labels, and preparation.
+The datasets are not committed. See [Dataset](docs/dataset.md) for sources, licenses, labels, and preparation. The current AerialYield experiment considers only `Red` (>90% red) ripe enough for harvest; `Light Red` remains `semi_ripe`.
 
 ## Run the pipeline
+
+For the current AerialYield-T2M experiment:
+
+```bash
+fruit-harvest data fetch-aerial
+fruit-harvest data prepare-aerial --ripe-stage red
+
+fruit-harvest train --data data/aerial-processed/dataset.yaml \
+  --config configs/aerial-cpu-highres.yaml --name aerial-adamw-highres
+
+fruit-harvest evaluate --split val \
+  --weights artifacts/runs/aerial-adamw-highres/weights/best.pt \
+  --data data/aerial-processed/dataset.yaml --config configs/aerial-cpu-highres.yaml \
+  --output artifacts/evaluation/aerial-highres-validation
+
+fruit-harvest evaluate --split test --detection-only \
+  --weights artifacts/runs/aerial-adamw-highres/weights/best.pt \
+  --data data/aerial-processed/dataset.yaml --config configs/aerial-cpu-highres.yaml \
+  --output artifacts/evaluation/aerial-test
+```
+
+The [source split audit](output/aerial/metrics/source_split_audit.json) explains why the AerialYield YOLO folders must be filtered by the official COCO split lists. Three CPU profiles were compared on validation only; [the selection record](output/aerial/metrics/validation_comparison.json) identifies the 512 px checkpoint. Validation found no correct `ripe` harvest decision, so the test command uses `--detection-only`. See [Reporting](docs/reporting.md) for the report commands.
+
+The earlier AgRobTomato workflow remains available:
 
 For the AgRobTomato Pascal VOC archive, download, verify, extract, and prepare it with:
 
@@ -83,13 +107,13 @@ The COCO file names are examples; point the flags to the actual extracted files.
 
 ## Source and dependency licenses
 
-AgRobTomato is cited in [Dataset](docs/dataset.md); its Zenodo metadata does not display an explicit license, so images are kept local and are not redistributed here. The original tomatOD source states CC BY-NC-SA 4.0. Ultralytics distributes its software and models under AGPL-3.0 or a separate enterprise license; review those terms before deploying or distributing a derivative system. This repository does not commit datasets or trained weights.
+AerialYield-T2M is released under [CC BY 4.0](https://zenodo.org/records/22071809/files/LICENSE?download=1). AgRobTomato is cited in [Dataset](docs/dataset.md); the official Zenodo API records CC BY 4.0. Cropped, annotated AgRob examples are distributed with [attribution](output/examples/ATTRIBUTION.md); the full datasets stay local. The original tomatOD source states CC BY-NC-SA 4.0. Ultralytics distributes its software and models under AGPL-3.0 or a separate enterprise license; review those terms before deploying or distributing a derivative system. This repository does not commit datasets or trained weights.
 
 ## Repository map
 
 | Path | Responsibility |
 | --- | --- |
-| `configs/default.yaml` | Training budget, optimization settings, split seed, and matching thresholds |
+| `configs/*.yaml` | Training budget, optimization settings, split seed, and matching thresholds |
 | `src/fruit_harvest/data/` | Source annotation adapters, validation, and YOLO conversion |
 | `src/fruit_harvest/model.py` | Narrow Ultralytics adapter for training and prediction |
 | `src/fruit_harvest/evaluation.py` | Validation and test orchestration, harvest policy selection |
@@ -98,6 +122,34 @@ AgRobTomato is cited in [Dataset](docs/dataset.md); its Zenodo metadata does not
 | `src/fruit_harvest/exporting.py` | Versioned `.pt` and `.onnx` bundle with checksums |
 | `src/fruit_harvest/contract.py` | Stable result types for a future robot controller |
 | `src/fruit_harvest/cli.py` | Reproducible user commands |
+| `scripts/` | Source split audit, licensed visual examples, and PDF/chart generation |
+| `output/` | Published metric snapshots, figures, examples, and PDF reports |
 | `docs/` | Architecture, data provenance, and experiment guidance |
 
 Read [Architecture](docs/architecture.md) for the contracts and [Experiments](docs/experiments.md) for metrics and interpretation.
+
+The project owner defined the goal and scope; implementation and the initial experiments received assistance from OpenAI Codex. The work is not presented as code written entirely by one person.
+
+The [reproducible report guide](docs/reporting.md) explains how to regenerate the public PDF, charts, and metric snapshots from the recorded CPU experiment. It also explains why a high matched-fruit accuracy does not mean the harvest decision is reliable.
+
+## Current AerialYield result
+
+The [AerialYield technical report](output/aerial/pdf/relatorio_tecnico_tomates.pdf) presents the split, three training profiles, curves, class balance, per-class metrics, confusion matrix, and [licensed visual examples](output/aerial/examples/ATTRIBUTION.md). The source has 677 unique images; the processed split is 477/105/95 images. Only `Red` (>90% red) maps to `ripe`.
+
+The selected 11-epoch, 512 px CPU checkpoint reached **80.0% detection precision**, **40.1% detection recall**, and **47.4% mAP@0.5** on the 95-image held-out test split. Accuracy among 1,634 matched fruits was **94.3%**, but macro F1 was **59.3%** and **none of the 13 matched ripe fruits were classified as ripe**. One additional ripe fruit was missed. The model does **not** provide a validated harvest recommendation. Dataset images and model weights are not in Git; the published [metric snapshots](output/aerial/metrics/) and [graphs](output/aerial/figures/) can be inspected without retraining.
+
+![AerialYield training losses and validation mAP](output/aerial/figures/training_curves.png)
+
+![AerialYield held-out test confusion matrix](output/aerial/figures/test_confusion.png)
+
+[Correct prediction](output/aerial/examples/correct.jpg) · [Incorrect ripe prediction](output/aerial/examples/incorrect.jpg). Both images are crops from the held-out test split; [attribution and changes](output/aerial/examples/ATTRIBUTION.md) are documented.
+
+## Earlier AgRob CPU smoke run
+
+The published [technical report](output/pdf/relatorio_tecnico_tomates.pdf) and [metric JSON/CSV files](output/metrics/) record a six-epoch verification run. On the 90-image held-out test split, aggregate detection precision was **56.2%**, recall **32.8%**, and mAP@0.5 **25.7%**. Matched-fruit classification accuracy was **90.3%**, but macro F1 was only **31.6%**: all five ripe test fruits with matched boxes were called `unripe`. No validated harvest policy exists for this checkpoint.
+
+![Training losses and validation mAP](output/figures/training_curves.png)
+
+![Held-out test confusion matrix](output/figures/test_confusion.png)
+
+The [correct example](output/examples/correct.jpg) and [incorrect example](output/examples/incorrect.jpg) show individual fruit boxes from the held-out AgRob test split. Green is the original annotation; orange is the model prediction. Image credit and changes are documented in [ATTRIBUTION.md](output/examples/ATTRIBUTION.md).

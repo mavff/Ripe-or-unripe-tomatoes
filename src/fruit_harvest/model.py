@@ -14,6 +14,42 @@ def load_detector(weights: Path | str):
     return YOLO(str(weights))
 
 
+def detector_class_names(detector) -> list[str]:
+    """Expose the model's class order through the project taxonomy."""
+    return [canonical_class(detector.names[index]) for index in range(len(detector.names))]
+
+
+def validate_detector(detector, dataset_yaml: Path, split: str, image_size: int,
+                      output: Path) -> tuple[dict, dict]:
+    """Return aggregate and per-class detection metrics from Ultralytics."""
+    result = detector.val(
+        data=str(dataset_yaml.resolve()), split=split, imgsz=image_size,
+        device="cpu", workers=0, plots=True, project=str(output.resolve()),
+        name="detector", exist_ok=True, verbose=False,
+    )
+    aggregate = {key: float(value) for key, value in result.results_dict.items()}
+    per_class = {
+        canonical_class(str(row["Class"])): {
+            "images": int(row["Images"]),
+            "instances": int(row["Instances"]),
+            "precision": float(row["Box-P"]),
+            "recall": float(row["Box-R"]),
+            "f1": float(row["Box-F1"]),
+            "map50": float(row["mAP50"]),
+            "map50_95": float(row["mAP50-95"]),
+        }
+        for row in result.summary(decimals=8)
+    }
+    return aggregate, per_class
+
+
+def export_detector_onnx(detector, image_size: int) -> Path:
+    """Export the detector; bundle placement stays in the exporting module."""
+    return Path(detector.export(
+        format="onnx", imgsz=image_size, device="cpu", simplify=False, dynamic=False
+    ))
+
+
 def predict_image(
     detector,
     image: Path,
